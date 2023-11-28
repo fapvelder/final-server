@@ -8,10 +8,7 @@ const productSchema = new mongoose.Schema(
     category: { type: Schema.Types.ObjectId, ref: "Category", required: true },
     status: { type: String },
     price: { type: Number, required: true },
-    photos: { type: [String], required: true },
-    productFeedback: [
-      { type: mongoose.Schema.Types.ObjectId, ref: "Feedback" },
-    ],
+    photos: { type: String, required: true },
     isAvailable: { type: Boolean, required: true },
   },
   { timestamps: true }

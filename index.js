@@ -7,7 +7,8 @@ import { v2 as cloudinary } from "cloudinary";
 import cookieParser from "cookie-parser";
 import users from "./routers/user.js";
 import dotenv from "dotenv";
-
+import products from "./routers/product.js";
+import category from "./routers/category.js";
 dotenv.config();
 // const __filename = fileURLToPath(import.meta.url)
 // const __dirname = path.dirname(__filename)
@@ -65,3 +66,5 @@ const server = app.listen(5000, () => {
 });
 
 app.use("/users", users);
+app.use("/category", category);
+app.use("/products", products);
