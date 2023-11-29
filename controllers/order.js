@@ -7,6 +7,16 @@ export const getOrders = async (req, res) => {
     res.status(500).send({ message: err.message });
   }
 };
+export const getOrdersByUserID = async (req, res) => {
+  try {
+    const orders = await OrderModel.find({ user: req.body.id }).sort({
+      createdAt: -1,
+    });
+    res.status(200).send(orders);
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+};
 export const getOrderById = async (req, res) => {
   try {
     const order = await OrderModel.findOne({ _id: req.body.id })
