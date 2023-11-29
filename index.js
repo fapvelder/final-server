@@ -9,6 +9,8 @@ import users from "./routers/user.js";
 import dotenv from "dotenv";
 import products from "./routers/product.js";
 import category from "./routers/category.js";
+import paypal from "./routers/paypal.js";
+import order from "./routers/order.js";
 dotenv.config();
 // const __filename = fileURLToPath(import.meta.url)
 // const __dirname = path.dirname(__filename)
@@ -68,3 +70,5 @@ const server = app.listen(5000, () => {
 app.use("/users", users);
 app.use("/category", category);
 app.use("/products", products);
+app.use("/paypal", paypal);
+app.use("/orders", order);
