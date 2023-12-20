@@ -64,3 +64,39 @@ export const payOrder = async (req, res) => {
     res.status(404).send({ message: "Order Not Found" });
   }
 };
+export const getDataOrder = async (req, res) => {
+  try {
+    const currentDate = new Date();
+    const previousThreeMonthsStartDate = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth() - 3,
+      1
+    );
+    const filter = {
+      isPaid: true,
+      updatedAt: {
+        $gte: previousThreeMonthsStartDate,
+        $lt: currentDate,
+      },
+    };
+    const orders = await OrderModel.aggregate([
+      { $match: filter },
+      {
+        $group: {
+          _id: {
+            year: { $year: "$updatedAt" },
+            month: { $month: "$updatedAt" },
+            day: { $dayOfMonth: "$updatedAt" },
+          },
+          totalPrice: { $sum: { $multiply: ["$totalPrice", 1] } },
+          itemCount: { $sum: 1 },
+        },
+      },
+
+      { $sort: { "_id.year": 1, "_id.month": 1, "_id.day": 1 } },
+    ]);
+    res.status(200).send(orders);
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+};

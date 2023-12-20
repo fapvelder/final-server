@@ -1,6 +1,7 @@
 import express from "express";
 import {
   createOrder,
+  getDataOrder,
   getOrderById,
   getOrders,
   getOrdersByUserID,
@@ -13,5 +14,6 @@ router.post("/my-order", getOrdersByUserID);
 router.post("/create", createOrder);
 router.post("/details", getOrderById);
 router.put("/:id/pay", payOrder);
+router.get("/chart", getDataOrder);
 
 export default router;
